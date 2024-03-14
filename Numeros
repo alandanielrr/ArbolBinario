@@ -1,0 +1,20 @@
+package com.mycompany.numeros;
+
+/**
+ *
+ * @author a2211
+ */
+public class Numeros {
+
+    public static void main(String args[]) {
+        int contador = 1;
+        
+        for(int i = 1; i <= 10000; i++)
+        {
+            if(i % 50 == 0)
+            {
+                contador--;
+            }
+        }
+    }
+}
