@@ -1,0 +1,26 @@
+package com.mycompany.algoritmia;
+
+/**
+ *
+ * @author a2211
+ */
+public class Pila {
+
+    private Nodo raiz;
+    public boolean existe(int busqueda) {
+        return existe(this.raiz, busqueda);
+    }
+    
+    private boolean existe(Nodo n ,int busqueda) {
+        if (n == null) {
+            return false;
+        }
+        if (n.getDato() == busqueda) {
+            return true;
+        } else if (busqueda < n.getDato()) {
+            return existe(n.getIzquierda(), busqueda);
+        } else {
+            return existe(n.getDerecha(), busqueda);
+        }
+    }
+}
