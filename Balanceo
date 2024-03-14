@@ -1,0 +1,24 @@
+package com.mycompany.algoritmia;
+
+import java.util.function.Function;
+
+/**
+ *
+ * @author a2211
+ */
+class Balanceo {
+    Function INSERT(value, Nodo):
+    if Nodo == null then
+    return new Nodo(value, red)
+    if value <= Nodo.value then 
+       Nodo.left<- INSERT(Nodo.left, value)
+} else {
+if value >= Nodo.value then
+Nodo.right<- INSERT(Nodo.right,value)
+if IS-RED(Nodo.right) (Nodo.left) then
+Nodo = ROTATE-LEFT(Nodo)
+if IS-RED(Nodo.left) (Nodo.left.left)then
+if IS-RED(Nodo.left) (Nodo.right) then
+COLOR-FLIP(Nodo)
+return Node;
+}
