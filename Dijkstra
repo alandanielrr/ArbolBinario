@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <utility>
+#include <limits>
+
+using namespace std;
+
+const int INF = numeric_limits<int>::max(); // Define el valor infinito
+
+// Función para implementar el algoritmo de Dijkstra
+void dijkstra(int source, const vector<vector<pair<int, int>>>& graph) {
+    int n = graph.size(); // Número de nodos en el grafo
+    vector<int> distance(n, INF); // Vector para almacenar las distancias desde el nodo fuente
+    distance[source] = 0; // La distancia desde el nodo fuente a sí mismo es 0
+
+    // Cola de prioridad para seleccionar el nodo con la menor distancia
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    pq.push({0, source}); // Insertar el nodo fuente en la cola
+
+    while (!pq.empty()) {
+        int dist = pq.top().first; // Distancia del nodo actual
+        int u = pq.top().second; // Nodo actual
+        pq.pop();
+
+        // Si la distancia es mayor, continuamos con el siguiente nodo
+        if (dist > distance[u]) continue;
+
+        // Relajación de las aristas adyacentes
+        for (const auto& edge : graph[u]) {
+            int v = edge.first; // Nodo adyacente
+            int weight = edge.second; // Peso de la arista
+            if (distance[u] + weight < distance[v]) {
+                distance[v] = distance[u] + weight; // Actualizar la distancia
+                pq.push({distance[v], v}); // Insertar el nodo actualizado en la cola
+            }
+        }
+    }
+
+    // Imprimir las distancias desde el nodo fuente a cada nodo
+    cout << "Distancias desde el nodo " << source << ":\n";
+    for (int i = 0; i < n; ++i) {
+        if (distance[i] == INF) {
+            cout << "Nodo " << i << ": INF\n"; // Nodo inalcanzable
+        } else {
+            cout << "Nodo " << i << ": " << distance[i] << "\n";
+        }
+    }
+}
+
+int main() {
+    // Grafo representado como una lista de adyacencia
+    // Cada par (destino, peso)
+    vector<vector<pair<int, int>>> graph = {
+        {{1, 2}, {2, 1}, {3, 4}}, // Nodos adyacentes al nodo 0
+        {{0, 2}, {3, 3}},         // Nodos adyacentes al nodo 1
+        {{0, 1}, {3, 2}},         // Nodos adyacentes al nodo 2
+        {{0, 4}, {1, 3}, {2, 2}, {4, 5}}, // Nodos adyacentes al nodo 3
+        {{3, 5}}                  // Nodos adyacentes al nodo 4
+    };
+
+    int source = 0; // Nodo fuente
+    dijkstra(source, graph); // Llamada a la función de Dijkstra
+
+    return 0;
+}
